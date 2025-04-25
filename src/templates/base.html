@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block headtitle%}{% endblock headtitle %}</title>
+    {% include 'base/css.html' %} 
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>This is a simple HTML template.</p>
+    {% include 'nav/navbar.html' %}
+    <h1 class="font-medium text-sky-500">Welcome to My Website</h1>
+    <p class="text-2xl font-medium">This is a simple HTML template.</p>
     {% block content %}
     {% endblock content %}
     <footer>
         <p>&copy; 2023 My Website</p>
+    </footer>
+    {% include 'base/js.html' %}
 </body>
 </html>
