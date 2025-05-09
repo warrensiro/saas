@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -140,7 +141,38 @@ STATICFILES_DIRS = [
 
 # output for python manage.py collectstatic which is for our local cdn/prod cdn
 STATIC_ROOT = BASE_DIR / 'local_cdn'
+# predates django version 4.2
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+STORAGES = {
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
+import requests
+
+response = requests.get('https://example.com', verify=False)
+print(response.content)
+
+# email config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = config("EMAIL_HOST", cast=str, default='smtp.gmail.com')
+# EMAIL_PORT = config("EMAIL_PORT", cast=str, default="587") #TLS
+# EMAIL_HOST_USER=config("EMAIL_HOST_USER", cast=str, default=None)
+# EMAIL_HOST_PASSWORD=config("EMAIL_HOST_PASSWORD", cast=str, default=None)
+# EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True) # uses port 587
+# EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool, default=False)
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587 #TLS
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER="nyachaewarren50@gmail.com"
+EMAIL_HOST_PASSWORD2="wsil dkda jbka tslo"
+
+
+
+ADMINS = [('Warren', 'warrensiro@gmail.com')] # useful in logging errors
+MANAGERS = [ADMINS]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
